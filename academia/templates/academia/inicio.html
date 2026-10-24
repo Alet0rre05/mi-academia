@@ -1,0 +1,13 @@
+{% extends "academia/base.html" %}
+
+{% block contenido %}
+<div class="tarjeta">
+  <h1>Bienvenido a Mi Academia</h1>
+  <p>Sistema de gestión académica para administrar cursos y alumnos.</p>
+  <p><strong>{{ total_cursos }}</strong> cursos · <strong>{{ total_alumnos }}</strong> alumnos registrados.</p>
+  <div class="acciones">
+    <a class="btn" href="{% url 'curso_lista' %}">Ver cursos</a>
+    <a class="btn sec" href="{% url 'alumno_lista' %}">Ver alumnos</a>
+  </div>
+</div>
+{% endblock %}

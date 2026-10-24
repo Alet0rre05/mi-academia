@@ -1,0 +1,17 @@
+{% extends "academia/base.html" %}
+
+{% block titulo %}{{ titulo }} · Mi Academia{% endblock %}
+
+{% block contenido %}
+<div class="tarjeta">
+  <h1>{{ titulo }}</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="acciones">
+      <button type="submit" class="btn">Guardar</button>
+      <a class="btn sec" href="{{ cancelar_url }}">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es-ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Mi Academia{% endblock %}</title>
+  <style>
+    :root { --primario: #2b4c7e; --fondo: #f4f6fa; --borde: #d9dee8; --texto: #1f2937; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--fondo); color: var(--texto); }
+    nav { background: var(--primario); padding: 0 1.5rem; display: flex; align-items: center; gap: 1.5rem; }
+    nav .marca { color: #fff; font-weight: 700; font-size: 1.15rem; padding: 1rem 0; text-decoration: none; }
+    nav a { color: #dbe4f3; text-decoration: none; padding: 1rem 0; }
+    nav a:hover { color: #fff; }
+    main { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+    .tarjeta { background: #fff; border: 1px solid var(--borde); border-radius: 8px; padding: 1.5rem; }
+    h1 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--borde); }
+    th { background: #eef2f8; }
+    .acciones { display: flex; gap: .4rem; align-items: center; }
+    .acciones form { margin: 0; }
+    .btn { display: inline-block; padding: .4rem .8rem; border-radius: 5px; border: 1px solid var(--primario); background: var(--primario); color: #fff; text-decoration: none; font-size: .9rem; cursor: pointer; }
+    .btn.sec { background: #fff; color: var(--primario); }
+    .btn.peligro { background: #b42318; border-color: #b42318; }
+    .barra { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .mensajes { list-style: none; padding: 0; margin: 0 0 1rem; }
+    .mensajes li { padding: .7rem 1rem; border-radius: 6px; margin-bottom: .5rem; border: 1px solid; }
+    .mensajes .success { background: #e7f6ec; border-color: #9fd6b0; color: #14532d; }
+    .mensajes .error { background: #fdecea; border-color: #f1aeb5; color: #7f1d1d; }
+    .mensajes .info, .mensajes .warning { background: #fff7e0; border-color: #f0d98a; color: #6b5300; }
+    dl { display: grid; grid-template-columns: 200px 1fr; gap: .6rem 1rem; }
+    dt { font-weight: 600; }
+    dd { margin: 0; }
+    form p { margin: 0 0 1rem; }
+    form label { display: block; font-weight: 600; margin-bottom: .25rem; }
+    form input[type=text], form input[type=email], form input[type=number], form textarea, form select { width: 100%; padding: .5rem; border: 1px solid var(--borde); border-radius: 5px; font: inherit; }
+    .errorlist { color: #b42318; list-style: none; padding: 0; margin: 0 0 .3rem; }
+    .helptext { color: #6b7280; font-size: .85rem; }
+    .vacio { color: #6b7280; padding: 1rem 0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="marca" href="{% url 'inicio' %}">🎓 Mi Academia</a>
+    <a href="{% url 'curso_lista' %}">Cursos</a>
+    <a href="{% url 'alumno_lista' %}">Alumnos</a>
+  </nav>
+  <main>
+    {% if messages %}
+      <ul class="mensajes">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block contenido %}{% endblock %}
+  </main>
+</body>
+</html>

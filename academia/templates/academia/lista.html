@@ -1,0 +1,42 @@
+{% extends "academia/base.html" %}
+
+{% block titulo %}{{ titulo }} · Mi Academia{% endblock %}
+
+{% block contenido %}
+<div class="tarjeta">
+  <div class="barra">
+    <h1>{{ titulo }}</h1>
+    <a class="btn" href="{{ crear_url }}">+ {{ crear_texto }}</a>
+  </div>
+  {% if filas %}
+  <table>
+    <thead>
+      <tr>
+        {% for columna in columnas %}<th>{{ columna }}</th>{% endfor %}
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fila in filas %}
+      <tr>
+        {% for valor in fila.valores %}<td>{{ valor }}</td>{% endfor %}
+        <td>
+          <div class="acciones">
+            <a class="btn sec" href="{{ fila.ver }}">Ver</a>
+            <a class="btn sec" href="{{ fila.editar }}">Editar</a>
+            <form method="post" action="{{ fila.eliminar }}"
+                  onsubmit="return confirm('¿Eliminar {{ fila.nombre|escapejs }}?');">
+              {% csrf_token %}
+              <button type="submit" class="btn peligro">Eliminar</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="vacio">Todavía no hay registros.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "academia/base.html" %}
+
+{% block titulo %}{{ titulo }} · Mi Academia{% endblock %}
+
+{% block contenido %}
+<div class="tarjeta">
+  <h1>{{ titulo }}</h1>
+  <dl>
+    {% for etiqueta, valor in campos %}
+      <dt>{{ etiqueta }}</dt>
+      <dd>{{ valor }}</dd>
+    {% endfor %}
+  </dl>
+
+  {% if relacionados_titulo %}
+    <h2>{{ relacionados_titulo }}</h2>
+    {% if relacionados %}
+      <ul>
+        {% for item in relacionados %}
+          <li><a href="{{ item.url }}">{{ item.texto }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="vacio">No hay registros asociados.</p>
+    {% endif %}
+  {% endif %}
+
+  <div class="acciones" style="margin-top:1.5rem">
+    <a class="btn sec" href="{{ volver_url }}">← Volver</a>
+    <a class="btn" href="{{ editar_url }}">Editar</a>
+    <form method="post" action="{{ eliminar_url }}"
+          onsubmit="return confirm('¿Eliminar {{ nombre|escapejs }}?');">
+      {% csrf_token %}
+      <button type="submit" class="btn peligro">Eliminar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
